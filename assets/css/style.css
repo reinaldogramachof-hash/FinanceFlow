@@ -50,7 +50,8 @@ body {
   font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
-  min-height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   display: flex;
   transition: var(--transition);
 }
@@ -70,7 +71,14 @@ body {
   position: fixed;
   top: 0; left: 0; bottom: 0;
   z-index: 100;
-  transition: var(--transition);
+  transform: translateX(-100%);
+  box-shadow: none;
+  transition: transform 0.3s ease;
+}
+
+.sidebar.mobile-open {
+  transform: translateX(0);
+  box-shadow: var(--shadow);
 }
 
 .sidebar-logo {
@@ -205,11 +213,11 @@ input:checked + .toggle-slider:before { transform: translateX(16px); }
 
 /* ===== MAIN CONTENT ===== */
 .main {
-  margin-left: var(--sidebar-width);
+  margin-left: 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -740,7 +748,7 @@ select.form-control { cursor: pointer; }
 
 /* ===== HAMBURGER ===== */
 .hamburger {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
