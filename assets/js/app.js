@@ -36,7 +36,12 @@ function navigate(page) {
   closeSidebar();
 
   if (page === 'dashboard') loadDashboard();
-  if (page === 'financeiro') loadFinanceiro();
+  if (page === 'financeiro') {
+    const saved = JSON.parse(localStorage.getItem('finFilters') || '{}');
+    if (saved.month) document.getElementById('filterMonth').value = saved.month;
+    if (saved.type) document.getElementById('filterType').value = saved.type;
+    loadFinanceiro();
+  }
   if (page === 'agenda') loadAgenda();
   if (page === 'notas') loadNotas();
   if (page === 'relatorios') loadReports();
@@ -121,6 +126,44 @@ function showToast(msg, type = 'success') {
   setTimeout(() => el.remove(), 3000);
 }
 
+// ===== CONFIRM DELETE =====
+function confirmDelete(message, onConfirm) {
+  document.getElementById('confirmMessage').textContent = message;
+  openModal('modalConfirm');
+  const okBtn = document.getElementById('confirmOk');
+  const cancelBtn = document.getElementById('confirmCancel');
+  const cleanup = () => {
+    okBtn.replaceWith(okBtn.cloneNode(true));
+    cancelBtn.replaceWith(cancelBtn.cloneNode(true));
+    closeModal('modalConfirm');
+  };
+  document.getElementById('confirmOk').addEventListener('click', () => { cleanup(); onConfirm(); }, { once: true });
+  document.getElementById('confirmCancel').addEventListener('click', cleanup, { once: true });
+}
+
+// ===== INLINE VALIDATION =====
+function setFieldError(inputId, message) {
+  const input = document.getElementById(inputId);
+  input.classList.add('input-error');
+  let err = input.nextElementSibling;
+  if (!err || !err.classList.contains('field-error')) {
+    err = document.createElement('div');
+    err.className = 'field-error';
+    input.after(err);
+  }
+  err.innerHTML = `⚠️ ${message}`;
+}
+
+function clearFieldErrors(...inputIds) {
+  inputIds.forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.classList.remove('input-error');
+    const err = input.nextElementSibling;
+    if (err && err.classList.contains('field-error')) err.remove();
+  });
+}
+
 // ===== API HELPER =====
 // Local PHP server (localhost/127.0.0.1) → adiciona .php
 // Vercel / produção → sem extensão (Node.js serverless functions)
@@ -190,6 +233,7 @@ function openTransactionModal(data = null) {
     if (btn.dataset.type === type) btn.classList.add('active');
   });
 
+  clearFieldErrors('tranValue', 'tranDate', 'tranCategory');
   openModal('modalTransaction');
 }
 
@@ -211,10 +255,11 @@ document.getElementById('btnSaveTransaction').addEventListener('click', async ()
   const category = document.getElementById('tranCategory').value;
   const description = document.getElementById('tranDesc').value;
 
-  if (!value || !date || !category) {
-    showToast('Preencha todos os campos obrigatórios', 'error');
-    return;
-  }
+  clearFieldErrors('tranValue', 'tranDate', 'tranCategory');
+  let hasError = false;
+  if (!value || isNaN(value) || value <= 0) { setFieldError('tranValue', 'Informe um valor válido'); hasError = true; }
+  if (!date) { setFieldError('tranDate', 'Data é obrigatória'); hasError = true; }
+  if (hasError) return;
 
   const payload = { type: transactionType, value, date, category, description };
   let result;

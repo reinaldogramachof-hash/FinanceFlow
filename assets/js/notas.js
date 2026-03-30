@@ -45,6 +45,7 @@ function openNoteModal(data = null) {
   const color = data?.color || '#6366f1';
   document.getElementById('noteColor').value = color;
   renderColorPicker(color);
+  clearFieldErrors('noteTitle');
   openModal('modalNote');
 }
 
@@ -56,10 +57,8 @@ document.getElementById('btnSaveNote').addEventListener('click', async () => {
   const id = document.getElementById('noteId').value;
   const title = document.getElementById('noteTitle').value.trim();
 
-  if (!title) {
-    showToast('Título é obrigatório', 'error');
-    return;
-  }
+  clearFieldErrors('noteTitle');
+  if (!title) { setFieldError('noteTitle', 'Título é obrigatório'); return; }
 
   const payload = {
     title,
@@ -81,8 +80,10 @@ document.getElementById('btnSaveNote').addEventListener('click', async () => {
   }
 });
 
-async function deleteNote(id) {
-  if (!confirm('Excluir esta nota?')) return;
-  const res = await api(`notes?id=${id}`, { method: 'DELETE' });
-  if (res) { showToast('Nota removida!'); loadNotas(); }
+function deleteNote(id) {
+  confirmDelete('Deseja excluir esta anotação?', async () => {
+    const res = await api(`notes?id=${id}`, { method: 'DELETE' });
+    if (res) { showToast('Nota removida!'); loadNotas(); }
+  });
+  return;
 }

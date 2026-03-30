@@ -129,6 +129,17 @@ document.getElementById('calNext').addEventListener('click', () => {
 
 document.getElementById('filterEventStatus').addEventListener('change', renderEvents);
 
+// Botão Hoje
+document.getElementById('calToday').addEventListener('click', () => {
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+  selectedDate = null;
+  document.getElementById('eventsLabel').textContent = `Eventos — ${now.toLocaleDateString('pt-BR', { month: 'long' })}`;
+  renderCalendar();
+  renderEvents();
+});
+
 document.getElementById('btnAddEvent').addEventListener('click', () => {
   openEventModal();
 });
@@ -142,6 +153,7 @@ function openEventModal(data = null) {
   document.getElementById('eventType').value = data?.type || 'evento';
   document.getElementById('eventStatus').value = data?.status || 'pendente';
   document.getElementById('eventDesc').value = data?.description || '';
+  clearFieldErrors('eventTitle', 'eventDate');
   openModal('modalEvent');
 }
 
@@ -152,10 +164,11 @@ document.getElementById('btnSaveEvent').addEventListener('click', async () => {
   const title = document.getElementById('eventTitle').value.trim();
   const date = document.getElementById('eventDate').value;
 
-  if (!title || !date) {
-    showToast('Título e data são obrigatórios', 'error');
-    return;
-  }
+  clearFieldErrors('eventTitle', 'eventDate');
+  let hasError = false;
+  if (!title) { setFieldError('eventTitle', 'Título é obrigatório'); hasError = true; }
+  if (!date) { setFieldError('eventDate', 'Data é obrigatória'); hasError = true; }
+  if (hasError) return;
 
   const payload = {
     title,
@@ -180,8 +193,10 @@ document.getElementById('btnSaveEvent').addEventListener('click', async () => {
   }
 });
 
-async function deleteEvent(id) {
-  if (!confirm('Excluir este evento?')) return;
-  const res = await api(`agenda?id=${id}`, { method: 'DELETE' });
-  if (res) { showToast('Evento removido!'); loadAgenda(); }
+function deleteEvent(id) {
+  confirmDelete('Deseja excluir este evento?', async () => {
+    const res = await api(`agenda?id=${id}`, { method: 'DELETE' });
+    if (res) { showToast('Evento removido!'); loadAgenda(); }
+  });
+  return;
 }

@@ -833,6 +833,45 @@ select.form-control { cursor: pointer; }
 .install-banner-text span { font-size: 11px; color: var(--text-muted); }
 .install-banner-actions { display: flex; gap: 8px; flex-shrink: 0; }
 
+/* ===== SKELETON LOADER ===== */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--border) 50%, var(--bg-secondary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skeleton-card {
+  height: 96px;
+  border-radius: var(--radius);
+}
+.skeleton-row {
+  height: 44px;
+  margin-bottom: 8px;
+  border-radius: var(--radius-sm);
+}
+.skeleton-chart {
+  height: 220px;
+  border-radius: var(--radius);
+}
+
+/* ===== INLINE VALIDATION ===== */
+.form-control.input-error {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 2px var(--red-light);
+}
+.field-error {
+  color: var(--red);
+  font-size: 11px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .grid-2, .reports-grid { grid-template-columns: 1fr; }

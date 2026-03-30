@@ -1,4 +1,11 @@
 async function loadFinanceiro() {
+  // Restaurar filtros persistidos
+  const savedFilters = JSON.parse(localStorage.getItem('finFilters') || '{}');
+  const filterMonthEl = document.getElementById('filterMonth');
+  const filterTypeEl = document.getElementById('filterType');
+  if (savedFilters.month && !filterMonthEl.value) filterMonthEl.value = savedFilters.month;
+  if (savedFilters.type && !filterTypeEl.value) filterTypeEl.value = savedFilters.type;
+
   const month = document.getElementById('filterMonth').value || getCurrentMonth();
   const type = document.getElementById('filterType').value;
   const category = document.getElementById('filterCategory').value;
@@ -6,6 +13,16 @@ async function loadFinanceiro() {
   let url = `transactions?month=${month}`;
   if (type) url += `&type=${type}`;
   if (category) url += `&category=${encodeURIComponent(category)}`;
+
+  // Skeleton loader
+  document.getElementById('finTransactions').innerHTML = `
+    <tr><td colspan="6">
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div>
+    </td></tr>
+  `;
 
   const data = await api(url);
   if (!data) return;
@@ -70,17 +87,63 @@ function editTransaction(t) {
   openTransactionModal(t);
 }
 
-async function deleteTransaction(id) {
-  if (!confirm('Deseja excluir esta transação?')) return;
-  const res = await api(`transactions?id=${id}`, { method: 'DELETE' });
-  if (res) {
-    showToast('Transação removida!');
-    if (currentPage === 'financeiro') loadFinanceiro();
-    if (currentPage === 'dashboard') loadDashboard();
-  }
+function deleteTransaction(id) {
+  confirmDelete('Deseja excluir esta transação? Esta ação não pode ser desfeita.', async () => {
+    const res = await api(`transactions?id=${id}`, { method: 'DELETE' });
+    if (res) {
+      showToast('Transação removida!');
+      if (currentPage === 'financeiro') loadFinanceiro();
+      if (currentPage === 'dashboard') loadDashboard();
+    }
+  });
+  return;
 }
 
-// Filters
-document.getElementById('filterMonth').addEventListener('change', loadFinanceiro);
-document.getElementById('filterType').addEventListener('change', loadFinanceiro);
-document.getElementById('filterCategory').addEventListener('change', loadFinanceiro);
+// Filters com persistência no localStorage
+['filterMonth', 'filterType', 'filterCategory'].forEach(id => {
+  document.getElementById(id).addEventListener('change', () => {
+    localStorage.setItem('finFilters', JSON.stringify({
+      month: document.getElementById('filterMonth').value,
+      type: document.getElementById('filterType').value,
+      category: document.getElementById('filterCategory').value
+    }));
+    loadFinanceiro();
+  });
+});
+
+// ===== EXPORT CSV =====
+document.getElementById('btnExportCSV').addEventListener('click', exportCSV);
+
+async function exportCSV() {
+  const month = document.getElementById('filterMonth').value || getCurrentMonth();
+  const type = document.getElementById('filterType').value;
+  const category = document.getElementById('filterCategory').value;
+
+  let url = `transactions?month=${month}`;
+  if (type) url += `&type=${type}`;
+  if (category) url += `&category=${encodeURIComponent(category)}`;
+
+  const data = await api(url);
+  if (!data || !data.data.length) {
+    showToast('Nenhuma transação para exportar', 'info');
+    return;
+  }
+
+  const headers = ['Data', 'Tipo', 'Categoria', 'Descrição', 'Valor'];
+  const rows = data.data.map(t => [
+    formatDate(t.date),
+    t.type,
+    t.category,
+    `"${(t.description || '').replace(/"/g, '""')}"`,
+    String(t.value).replace('.', ',')
+  ]);
+
+  const csv = [headers, ...rows].map(r => r.join(';')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `financeflow_${month}.csv`;
+  link.click();
+  URL.revokeObjectURL(link.href);
+  showToast('CSV exportado com sucesso!');
+}

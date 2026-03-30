@@ -5,6 +5,21 @@ async function loadDashboard() {
   const month = getCurrentMonth();
   document.getElementById('dashMonth').textContent = new Date(month + '-01').toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
 
+  // Skeleton loader
+  document.getElementById('dashStats').innerHTML = `
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+  `;
+  document.getElementById('dashTransactions').innerHTML = `
+    <tr><td colspan="5">
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div>
+      <div class="skeleton skeleton-row"></div>
+    </td></tr>
+  `;
+
   const data = await api(`transactions?month=${month}`);
   if (!data) return;
 
