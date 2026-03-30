@@ -740,40 +740,52 @@
 
     <h3>Estrutura de Arquivos</h3>
 
-    <div class="code-block">
+    <div class="card" style="padding: 0; overflow: hidden; background: #0f172a; border-color: #334155;">
+      <div style="background: #1e293b; padding: 12px 20px; display: flex; align-items: center; border-bottom: 1px solid #334155;">
+        <div style="display: flex; gap: 8px;">
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #ef4444;"></div>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #f59e0b;"></div>
+          <div style="width: 12px; height: 12px; border-radius: 50%; background: #10b981;"></div>
+        </div>
+        <div style="flex: 1; text-align: center; color: #94a3b8; font-size: 13px; font-family: 'Cascadia Code', monospace; letter-spacing: 0.5px;">/FinanceFlow Tree</div>
+      </div>
+      <div class="code-block" style="margin: 0; border-radius: 0; background: transparent; border: none; box-shadow: none;">
 <span class="cm">📁 FinanceFlow/</span>
-├── <span class="str">index.html</span>          <span class="cm">← SPA principal (toda a estrutura HTML)</span>
-├── <span class="str">manifest.json</span>       <span class="cm">← PWA: nome, ícone, cor, shortcuts</span>
-├── <span class="str">sw.js</span>               <span class="cm">← Service Worker: cache offline</span>
-├── <span class="str">vercel.json</span>         <span class="cm">← Configuração de rotas e headers</span>
-├── <span class="str">package.json</span>        <span class="cm">← Dependência: pg (PostgreSQL)</span>
+├── <span class="str">index.html</span>          <span class="cm">← SPA principal (Toda a estrutura de views HTML)</span>
+├── <span class="str">index.php</span>           <span class="cm">← Root router para PHP Server (Ambiente Misto)</span>
+├── <span class="str">manifest.json</span>       <span class="cm">← PWA: nome, ícone, cor, atalhos de tela predefinidos</span>
+├── <span class="str">sw.js</span>               <span class="cm">← Service Worker: core caching loop para PWA offline</span>
+├── <span class="str">vercel.json</span>         <span class="cm">← Configuração de roteamentos e headers Cloud Vercel</span>
+├── <span class="str">package.json</span>        <span class="cm">← Dependências e metadados backend Node.js</span>
 │
-├── <span class="kw">api/</span>                 <span class="cm">← Endpoints Node.js (Vercel)</span>
-│   ├── <span class="fn">_db.js</span>           <span class="cm">← Pool PostgreSQL + CREATE TABLE IF NOT EXISTS</span>
-│   ├── <span class="fn">transactions.js</span>  <span class="cm">← GET/POST/PUT/DELETE /api/transactions</span>
-│   ├── <span class="fn">agenda.js</span>        <span class="cm">← GET/POST/PUT/DELETE /api/agenda</span>
-│   ├── <span class="fn">notes.js</span>         <span class="cm">← GET/POST/PUT/DELETE /api/notes</span>
-│   └── <span class="fn">reports.js</span>       <span class="cm">← GET /api/reports?year=YYYY</span>
+├── <span class="kw">api/</span>                 <span class="cm">← Endpoints Cloud Serverless (Ambiente Web)</span>
+│   ├── <span class="fn">_db.js</span>           <span class="cm">← Connection pool Neon PostgreSQL + AutoSchema</span>
+│   ├── <span class="fn">transactions.js</span>  <span class="cm">← API Transplante Financeiro</span>
+│   ├── <span class="fn">agenda.js</span>        <span class="cm">← API Agendamentos Temporais</span>
+│   ├── <span class="fn">notes.js</span>         <span class="cm">← API Vault de Documentos</span>
+│   └── <span class="fn">reports.js</span>       <span class="cm">← API Consolidadores Contábeis Anuais</span>
 │
 ├── <span class="kw">assets/</span>
 │   ├── css/
-│   │   └── <span class="str">style.css</span>    <span class="cm">← Design system completo (931 linhas)</span>
+│   │   └── <span class="str">style.css</span>    <span class="cm">← Design System UI (Dark/Light root config central)</span>
 │   ├── js/
-│   │   ├── <span class="fn">app.js</span>       <span class="cm">← Núcleo: navegação, modais, toast, API helper</span>
-│   │   ├── <span class="fn">dashboard.js</span> <span class="cm">← Gráficos e cards do Dashboard</span>
-│   │   ├── <span class="fn">financeiro.js</span><span class="cm">← Tabela de transações + filtros</span>
-│   │   ├── <span class="fn">agenda.js</span>    <span class="cm">← Calendário interativo + eventos</span>
-│   │   ├── <span class="fn">notas.js</span>     <span class="cm">← Grid de anotações coloridas</span>
-│   │   └── <span class="fn">relatorios.js</span><span class="cm">← Gráficos e tabela de relatórios anuais</span>
+│   │   ├── <span class="fn">app.js</span>       <span class="cm">← Bootstrap app core / Componentes Modais Compartilhados</span>
+│   │   ├── <span class="fn">dashboard.js</span> <span class="cm">← Script de KPI charts</span>
+│   │   ├── <span class="fn">financeiro.js</span><span class="cm">← Script de CRUD ledger</span>
+│   │   ├── <span class="fn">agenda.js</span>    <span class="cm">← Script de Calendar views dinâmicas</span>
+│   │   ├── <span class="fn">notas.js</span>     <span class="cm">← Script de Grid interativo</span>
+│   │   ├── <span class="fn">relatorios.js</span><span class="cm">← Script compilador do report base</span>
+│   │   └── <span class="fn">configuracoes.js</span><span class="cm">← Script de Storage Options + Backup Engine Local</span>
 │   └── icons/
-│       └── <span class="str">icon.svg</span>     <span class="cm">← Ícone PWA</span>
+│       └── <span class="str">icon.svg</span>     <span class="cm">← Ícone SVG central vetorizado do PWA</span>
 │
-└── <span class="kw">php/</span>                 <span class="cm">← Backend PHP (uso local com SQLite)</span>
+└── <span class="kw">php/</span>                 <span class="cm">← Backend Nativo PHP / Banco SQLite (Instância Local)</span>
     ├── db.php
     ├── transactions.php
     ├── agenda.php
     ├── notes.php
     └── reports.php
+      </div>
     </div>
 
     <h3>Padrão de Comunicação Frontend ↔ Backend</h3>
