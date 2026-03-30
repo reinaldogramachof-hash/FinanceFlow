@@ -38,9 +38,9 @@
     .cover {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
       color: #f1f5f9;
-      padding: 80px 60px;
+      padding: 80px 60px 140px;
       text-align: center;
-      min-height: 100vh;
+      min-height: 85vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -128,8 +128,18 @@
     /* ===== LAYOUT ===== */
     .container {
       max-width: 900px;
-      margin: 0 auto;
+      margin: -80px auto 60px;
       padding: 60px 40px;
+      background: var(--card);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 40px 24px; margin: -60px 16px 40px; border-radius: 16px; }
+      .cover { padding-bottom: 100px; }
     }
 
     /* ===== SEÇÕES ===== */
@@ -174,7 +184,13 @@
       border-radius: var(--radius);
       padding: 24px;
       margin-bottom: 16px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+      border-color: #cbd5e1;
     }
 
     .card-grid {
@@ -364,6 +380,12 @@
       padding: 28px;
       margin-bottom: 20px;
       border-left: 4px solid var(--accent);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .module:hover {
+      transform: translateX(6px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.06);
     }
 
     .module-header {
@@ -1179,6 +1201,29 @@
         <li>Barra de progresso visual mostrando a participação percentual de cada categoria</li>
         <li>Média mensal de despesas calculada automaticamente</li>
         <li>Dados agregados com queries SQL no backend (sem processamento pesado no JS)</li>
+      </ul>
+    </div>
+
+    <!-- CONFIGURAÇÕES -->
+    <div class="module" style="border-left-color:#64748b">
+      <div class="module-header">
+        <div class="module-icon">⚙️</div>
+        <div>
+          <div class="module-title">Configurações</div>
+          <div class="module-sub">Personalização e segurança dos dados</div>
+        </div>
+        <span class="badge" style="margin-left:auto; background: #e2e8f0; color: #475569; font-weight: 600;">Módulo 6</span>
+      </div>
+      <p style="font-size:14px;color:#334155;margin-bottom:12px">
+        Painel de controle do usuário. Permite personalizar configurações pessoais, organizar dados vitais e garantir a segurança das informações através de backups offline.
+      </p>
+      <ul class="feature-list">
+        <li>Perfil do Usuário: Salvar nome completo, CPF e instruções pessoais (armazenamento local)</li>
+        <li>Categorias Personalizadas: Adicione e gerencie novas categorias próprias para receitas e despesas</li>
+        <li>Integração total: As categorias refletem instantaneamente no seletor de novas transações</li>
+        <li>Exportação de Backup: Baixe um backup em formato JSON (transações, agenda, notas e categorias)</li>
+        <li>Restauração: Carregue um backup baixado anteriormente para recuperar o estado do sistema</li>
+        <li>Zona de Perigo: Botão dedidaco para limpar de forma irreversível os dados da sessão/banco</li>
       </ul>
     </div>
   </div>
