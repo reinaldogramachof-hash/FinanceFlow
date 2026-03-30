@@ -1,0 +1,9 @@
+# Banco local (PHP/SQLite)
+*.db
+*.sqlite
+
+# Variáveis de ambiente
+.env
+
+# Node.js
+node_modules/

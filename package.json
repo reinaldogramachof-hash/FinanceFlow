@@ -1,0 +1,12 @@
+{
+  "name": "financeflow",
+  "version": "1.0.0",
+  "description": "Gerenciador Financeiro Pessoal — Projeto Acadêmico",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "pg": "^8.11.3"
+  }
+}
