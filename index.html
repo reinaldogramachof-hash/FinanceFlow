@@ -36,19 +36,22 @@
   <nav class="sidebar-nav">
     <span class="nav-label">Menu</span>
     <button class="nav-item active" data-page="dashboard">
-      <span class="icon">📊</span> Dashboard
+      <span class="icon">📊</span><span class="nav-text"> Dashboard</span>
     </button>
     <button class="nav-item" data-page="financeiro">
-      <span class="icon">💳</span> Financeiro
+      <span class="icon">💳</span><span class="nav-text"> Financeiro</span>
     </button>
     <button class="nav-item" data-page="agenda">
-      <span class="icon">📅</span> Agenda
+      <span class="icon">📅</span><span class="nav-text"> Agenda</span>
     </button>
     <button class="nav-item" data-page="notas">
-      <span class="icon">📝</span> Anotações
+      <span class="icon">📝</span><span class="nav-text"> Anotações</span>
     </button>
     <button class="nav-item" data-page="relatorios">
-      <span class="icon">📈</span> Relatórios
+      <span class="icon">📈</span><span class="nav-text"> Relatórios</span>
+    </button>
+    <button class="nav-item" data-page="configuracoes">
+      <span class="icon">⚙️</span><span class="nav-text"> Configurações</span>
     </button>
   </nav>
 
@@ -215,6 +218,91 @@
         <button class="btn btn-primary" id="btnAddNote">＋ Nova Nota</button>
       </div>
       <div class="notes-grid" id="notesGrid"></div>
+    </div>
+
+    <!-- ===== CONFIGURAÇÕES ===== -->
+    <div class="page" id="page-configuracoes">
+
+      <!-- Perfil -->
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <span class="card-title">👤 Perfil do Usuário</span>
+          <button class="btn btn-primary btn-sm" id="btnSaveProfile">Salvar Perfil</button>
+        </div>
+        <div class="form-row" style="margin-top:12px">
+          <div class="form-group">
+            <label class="form-label">Nome Completo</label>
+            <input type="text" class="form-control" id="profileName" placeholder="Seu nome completo..." />
+          </div>
+          <div class="form-group">
+            <label class="form-label">CPF</label>
+            <input type="text" class="form-control" id="profileCPF" placeholder="000.000.000-00" maxlength="14" />
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:4px">
+          <label class="form-label">Instruções / Observações Pessoais</label>
+          <textarea class="form-control" id="profileNotes" placeholder="Metas financeiras, lembretes de uso, instruções pessoais..." style="min-height:80px"></textarea>
+        </div>
+      </div>
+
+      <!-- Categorias Personalizadas -->
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <span class="card-title">🏷️ Categorias Personalizadas</span>
+        </div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">
+          Adicione categorias próprias para organizar melhor suas receitas e despesas.
+        </p>
+        <div class="settings-cats-grid">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px">↑ Receitas</div>
+            <div id="catListReceita" class="cat-list"></div>
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <input type="text" class="form-control" id="newCatReceita" placeholder="Nova categoria de receita..." />
+              <button class="btn btn-secondary" onclick="addCategory('receita')" style="flex-shrink:0">＋</button>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px">↓ Despesas</div>
+            <div id="catListDespesa" class="cat-list"></div>
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <input type="text" class="form-control" id="newCatDespesa" placeholder="Nova categoria de despesa..." />
+              <button class="btn btn-secondary" onclick="addCategory('despesa')" style="flex-shrink:0">＋</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Backup & Restauração -->
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <span class="card-title">📂 Backup & Restauração</span>
+        </div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">
+          Exporte todos os dados (transações, agenda, notas e categorias) em um arquivo JSON. Para restaurar, selecione um arquivo de backup gerado pelo FinanceFlow.
+        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-secondary" id="btnBackup">📥 Exportar Backup</button>
+          <label class="btn btn-secondary" style="cursor:pointer;margin:0">
+            📤 Restaurar Backup
+            <input type="file" id="restoreFile" accept=".json" style="display:none" />
+          </label>
+        </div>
+        <div id="restoreStatus" style="margin-top:12px;font-size:13px;color:var(--text-muted)"></div>
+      </div>
+
+      <!-- Zona de Perigo -->
+      <div class="card danger-zone">
+        <div class="card-header">
+          <span class="card-title" style="color:var(--red)">⚠️ Zona de Perigo</span>
+        </div>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6">
+          <strong style="color:var(--red)">Atenção:</strong> A ação abaixo é permanente e irreversível.
+          Todos os dados — transações, eventos e anotações — serão excluídos do banco de dados. Esta ação não pode ser desfeita. Faça um backup antes de prosseguir.
+        </p>
+        <button class="btn btn-danger" id="btnClearAll">🗑️ Limpar Todos os Dados</button>
+      </div>
+
     </div>
 
     <!-- ===== RELATÓRIOS ===== -->
@@ -399,31 +487,7 @@
 <!-- SIDEBAR BACKDROP -->
 <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-<!-- BOTTOM NAV (mobile) -->
-<nav class="bottom-nav">
-  <div class="bottom-nav-inner">
-    <button class="bnav-item active" data-page="dashboard">
-      <span class="bnav-icon">📊</span>
-      <span>Dashboard</span>
-    </button>
-    <button class="bnav-item" data-page="financeiro">
-      <span class="bnav-icon">💳</span>
-      <span>Financeiro</span>
-    </button>
-    <button class="bnav-item" data-page="agenda">
-      <span class="bnav-icon">📅</span>
-      <span>Agenda</span>
-    </button>
-    <button class="bnav-item" data-page="notas">
-      <span class="bnav-icon">📝</span>
-      <span>Notas</span>
-    </button>
-    <button class="bnav-item" data-page="relatorios">
-      <span class="bnav-icon">📈</span>
-      <span>Relatórios</span>
-    </button>
-  </div>
-</nav>
+<!-- BOTTOM NAV removido — navegação centralizada no sidebar fixo -->
 
 <!-- PWA INSTALL BANNER -->
 <div class="install-banner" id="installBanner">
@@ -464,6 +528,7 @@
 <script src="assets/js/agenda.js"></script>
 <script src="assets/js/notas.js"></script>
 <script src="assets/js/relatorios.js"></script>
+<script src="assets/js/configuracoes.js"></script>
 
 <script>
 // ===== SERVICE WORKER =====

@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinanceFlow — Documentação de Apresentação</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #6366f1;
+      --accent-light: rgba(99,102,241,0.12);
+      --green: #10b981;
+      --green-light: rgba(16,185,129,0.12);
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --blue: #3b82f6;
+      --purple: #8b5cf6;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* ===== CAPA ===== */
+    .cover {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #312e81 100%);
+      color: #f1f5f9;
+      padding: 80px 60px;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: rgba(99,102,241,0.08);
+      top: -200px; right: -200px;
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: rgba(16,185,129,0.06);
+      bottom: -150px; left: -100px;
+    }
+
+    .cover-logo {
+      width: 72px; height: 72px;
+      background: var(--accent);
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+      margin: 0 auto 28px;
+      box-shadow: 0 8px 32px rgba(99,102,241,0.4);
+      position: relative; z-index: 1;
+    }
+
+    .cover h1 {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      position: relative; z-index: 1;
+    }
+
+    .cover h1 span { color: #818cf8; }
+
+    .cover-subtitle {
+      font-size: 18px;
+      color: #94a3b8;
+      margin-bottom: 48px;
+      position: relative; z-index: 1;
+    }
+
+    .cover-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 60px;
+      position: relative; z-index: 1;
+    }
+
+    .cover-badge {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      color: #cbd5e1;
+      backdrop-filter: blur(8px);
+    }
+
+    .cover-meta {
+      font-size: 13px;
+      color: #64748b;
+      position: relative; z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 32px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .cover-meta strong { color: #94a3b8; }
+
+    /* ===== LAYOUT ===== */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    /* ===== SEÇÕES ===== */
+    .section {
+      margin-bottom: 64px;
+    }
+
+    .section-number {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 28px 0 12px;
+    }
+
+    .section p {
+      color: #334155;
+      margin-bottom: 14px;
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ===== TECH PILLS ===== */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .tech-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .tech-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .tech-name {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .tech-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ===== BADGE ===== */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .badge-accent { background: var(--accent-light); color: var(--accent); }
+    .badge-green { background: var(--green-light); color: var(--green); }
+    .badge-red { background: rgba(239,68,68,0.12); color: var(--red); }
+    .badge-yellow { background: rgba(245,158,11,0.12); color: var(--yellow); }
+    .badge-blue { background: rgba(59,130,246,0.12); color: var(--blue); }
+    .badge-purple { background: rgba(139,92,246,0.12); color: var(--purple); }
+
+    /* ===== HIGHLIGHT BOX ===== */
+    .highlight {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius-sm, 8px) var(--radius-sm, 8px) 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #312e81;
+    }
+
+    .highlight-green {
+      background: var(--green-light);
+      border-left-color: var(--green);
+      color: #064e3b;
+    }
+
+    /* ===== CODE BLOCK ===== */
+    .code-block {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    .code-block .kw { color: #818cf8; }
+    .code-block .str { color: #34d399; }
+    .code-block .cm { color: #475569; font-style: italic; }
+    .code-block .fn { color: #f59e0b; }
+
+    /* ===== TABLE ===== */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f1f5f9;
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    /* ===== STEPS ===== */
+    .steps {
+      counter-reset: step;
+      margin: 20px 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      counter-increment: step;
+      width: 36px; height: 36px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-num::before { content: counter(step); }
+
+    .step-body h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .step-body p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ===== MODULE CARDS ===== */
+    .module {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .module-icon {
+      font-size: 32px;
+    }
+
+    .module-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .module-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-top: 14px;
+    }
+
+    .feature-list li {
+      padding: 6px 0;
+      font-size: 14px;
+      color: #334155;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ===== ARCH DIAGRAM ===== */
+    .arch {
+      background: #0f172a;
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      color: #94a3b8;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+
+    .arch-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 8px 0;
+      flex-wrap: wrap;
+    }
+
+    .arch-box {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .arch-box.accent { border-color: #6366f1; color: #818cf8; }
+    .arch-box.green { border-color: #10b981; color: #34d399; }
+    .arch-box.yellow { border-color: #f59e0b; color: #fbbf24; }
+    .arch-box.blue { border-color: #3b82f6; color: #60a5fa; }
+
+    .arch-arrow {
+      color: #475569;
+      font-size: 18px;
+    }
+
+    /* ===== DB SCHEMA ===== */
+    .db-table {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .db-table-header {
+      background: #0f172a;
+      color: #818cf8;
+      padding: 12px 20px;
+      font-weight: 700;
+      font-size: 14px;
+      font-family: monospace;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .db-field {
+      display: grid;
+      grid-template-columns: 160px 130px 1fr;
+      gap: 16px;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      align-items: center;
+    }
+
+    .db-field:last-child { border-bottom: none; }
+    .db-field:hover { background: #f8fafc; }
+
+    .db-field-name { font-family: monospace; font-weight: 600; color: #0f172a; }
+    .db-field-type { color: var(--blue); font-family: monospace; font-size: 12px; }
+    .db-field-desc { color: var(--muted); font-size: 12px; }
+
+    /* ===== PRINT ===== */
+    @media print {
+      .cover { min-height: auto; page-break-after: always; }
+      .section { page-break-inside: avoid; }
+      .no-print { display: none; }
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 48px 0;
+    }
+
+    /* ===== FOOTER ===== */
+    .doc-footer {
+      background: #0f172a;
+      color: #475569;
+      text-align: center;
+      padding: 40px;
+      font-size: 13px;
+      margin-top: 80px;
+    }
+
+    .doc-footer strong { color: #94a3b8; }
+  </style>
+</head>
+<body>
+
+<!-- ===== CAPA ===== -->
+<div class="cover">
+  <div class="cover-logo">💰</div>
+  <h1>Finance<span>Flow</span></h1>
+  <p class="cover-subtitle">Gerenciador Financeiro Pessoal — Documentação Técnica Completa</p>
+
+  <div class="cover-badges">
+    <span class="cover-badge">📄 HTML5 + CSS3</span>
+    <span class="cover-badge">⚡ JavaScript Vanilla</span>
+    <span class="cover-badge">🟢 Node.js Serverless</span>
+    <span class="cover-badge">🐘 PostgreSQL (Neon)</span>
+    <span class="cover-badge">☁️ Deploy Vercel</span>
+    <span class="cover-badge">📱 PWA</span>
+  </div>
+
+  <div class="cover-meta">
+    <strong>Projeto Acadêmico — Desenvolvimento Web</strong><br>
+    Apresentado em 30 de março de 2026
+  </div>
+</div>
+
+<!-- ===== CONTEÚDO ===== -->
+<div class="container">
+
+  <!-- 1. INTRODUÇÃO -->
+  <div class="section">
+    <div class="section-number">01 — Introdução</div>
+    <h2>O que é o FinanceFlow?</h2>
+
+    <p>
+      O <strong>FinanceFlow</strong> é uma aplicação web de gerenciamento financeiro pessoal desenvolvida como projeto acadêmico. O sistema permite ao usuário controlar receitas e despesas, organizar compromissos em uma agenda interativa, manter anotações pessoais e visualizar relatórios analíticos de sua vida financeira.
+    </p>
+
+    <p>
+      O sistema foi construído como uma <strong>SPA (Single-Page Application)</strong> — ou seja, toda a navegação ocorre sem recarregamento de página, proporcionando uma experiência fluída similar a aplicativos nativos. Adicionalmente, o sistema suporta <strong>PWA (Progressive Web App)</strong>, permitindo que o usuário instale o FinanceFlow diretamente no celular ou desktop como um aplicativo.
+    </p>
+
+    <div class="highlight">
+      <strong>Motivação:</strong> A maioria das pessoas não tem controle claro sobre para onde vai seu dinheiro. O FinanceFlow resolve isso centralizando receitas, despesas, agenda de pagamentos e análises em um único painel moderno e acessível.
+    </div>
+
+    <h3>Principais características</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">🎨</div>
+        <h4>Design Moderno</h4>
+        <p>Interface com tema escuro/claro, animações suaves e paleta de cores profissional baseada em variáveis CSS.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <h4>Mobile First</h4>
+        <p>Layout responsivo com menu hamburguer, barra de navegação inferior e suporte a notch iOS.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h4>Tempo Real</h4>
+        <p>Dados carregados dinamicamente via API REST sem recarregar a página. Gráficos atualizados a cada ação.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">☁️</div>
+        <h4>100% Online</h4>
+        <p>Hospedado na Vercel com banco de dados PostgreSQL na nuvem (Neon). Acesse de qualquer dispositivo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. TECNOLOGIAS -->
+  <div class="section">
+    <div class="section-number">02 — Tecnologias</div>
+    <h2>Stack Tecnológico</h2>
+
+    <p>O projeto foi desenvolvido com tecnologias modernas, open-source e gratuitas, divididas em três camadas: <strong>Frontend</strong>, <strong>Backend</strong> e <strong>Infraestrutura</strong>.</p>
+
+    <h3>Frontend</h3>
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-icon">📄</div>
+        <div>
+          <div class="tech-name">HTML5</div>
+          <div class="tech-desc">Estrutura semântica do sistema. Uma única página (<code>index.html</code>) com todos os módulos, modais e elementos de navegação.</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🎨</div>
+        <div>
+          <div class="tech-name">CSS3 + Variáveis CSS</div>
+          <div class="tech-desc">Estilização completa com sistema de design baseado em <code>:root</code> variables. Tema escuro/claro sem JavaScript extra.</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">⚡</div>
+        <div>
+          <div class="tech-name">JavaScript ES2022</div>
+          <div class="tech-desc">100% vanilla JS (sem frameworks). Módulos separados por funcionalidade usando <code>async/await</code> e Fetch API.</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">📊</div>
+        <div>
+          <div class="tech-name">Chart.js (CDN)</div>
+          <div class="tech-desc">Biblioteca para geração de gráficos interativos: pizza, barras, linha e rosca. Carregado via CDN sem instalação.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Backend</h3>
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-icon">🟢</div>
+        <div>
+          <div class="tech-name">Node.js ≥ 18</div>
+          <div class="tech-desc">Runtime JavaScript no servidor. Executa as funções serverless na Vercel. Usa ES Modules (<code>import/export</code>).</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🔌</div>
+        <div>
+          <div class="tech-name">Vercel Serverless Functions</div>
+          <div class="tech-desc">Cada arquivo em <code>/api/*.js</code> vira automaticamente um endpoint HTTP. Sem necessidade de servidor dedicado.</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🐘</div>
+        <div>
+          <div class="tech-name">PostgreSQL (Neon)</div>
+          <div class="tech-desc">Banco de dados relacional hospedado gratuitamente no Neon. Conexão via <code>pg</code> (node-postgres) com pool de conexões.</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🐘</div>
+        <div>
+          <div class="tech-name">PHP + SQLite (local)</div>
+          <div class="tech-desc">Para desenvolvimento local, os mesmos endpoints existem em PHP com banco SQLite — sem necessidade de internet.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Infraestrutura e Deploy</h3>
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-icon">▲</div>
+        <div>
+          <div class="tech-name">Vercel (Hosting)</div>
+          <div class="tech-desc">Plataforma de deploy gratuita. Integra com GitHub e faz deploy automático a cada <code>git push</code>. CDN global.</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🐙</div>
+        <div>
+          <div class="tech-name">GitHub</div>
+          <div class="tech-desc">Controle de versão e repositório do código. Cada commit dispara um novo deploy na Vercel automaticamente.</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">📱</div>
+        <div>
+          <div class="tech-name">PWA (Service Worker)</div>
+          <div class="tech-desc">O sistema pode ser instalado no celular como app. Cache offline para assets estáticos. Manifesto com atalhos de tela.</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🔒</div>
+        <div>
+          <div class="tech-name">HTTPS + SSL/TLS</div>
+          <div class="tech-desc">Certificado SSL automático pela Vercel. Conexão com banco via SSL (<code>rejectUnauthorized: false</code> para Neon).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ARQUITETURA -->
+  <div class="section">
+    <div class="section-number">03 — Arquitetura</div>
+    <h2>Arquitetura do Sistema</h2>
+
+    <p>O FinanceFlow utiliza uma arquitetura de <strong>três camadas</strong> com comunicação via REST API:</p>
+
+    <div class="arch">
+      <div style="color:#64748b;font-size:12px;margin-bottom:20px;letter-spacing:1px;text-transform:uppercase">Fluxo de Dados</div>
+
+      <div class="arch-row">
+        <div class="arch-box accent">📱 Usuário (Browser / App)</div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-arrow">↕ HTTPS</div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box yellow">🌐 Vercel CDN (index.html + assets)</div>
+        <div class="arch-arrow">+</div>
+        <div class="arch-box blue">⚡ Vercel Functions (/api/*.js)</div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-arrow">↕ SSL + connection pool</div>
+      </div>
+      <div class="arch-row">
+        <div class="arch-box green">🐘 Neon PostgreSQL (Cloud)</div>
+      </div>
+    </div>
+
+    <h3>Estrutura de Arquivos</h3>
+
+    <div class="code-block">
+<span class="cm">📁 FinanceFlow/</span>
+├── <span class="str">index.html</span>          <span class="cm">← SPA principal (toda a estrutura HTML)</span>
+├── <span class="str">manifest.json</span>       <span class="cm">← PWA: nome, ícone, cor, shortcuts</span>
+├── <span class="str">sw.js</span>               <span class="cm">← Service Worker: cache offline</span>
+├── <span class="str">vercel.json</span>         <span class="cm">← Configuração de rotas e headers</span>
+├── <span class="str">package.json</span>        <span class="cm">← Dependência: pg (PostgreSQL)</span>
+│
+├── <span class="kw">api/</span>                 <span class="cm">← Endpoints Node.js (Vercel)</span>
+│   ├── <span class="fn">_db.js</span>           <span class="cm">← Pool PostgreSQL + CREATE TABLE IF NOT EXISTS</span>
+│   ├── <span class="fn">transactions.js</span>  <span class="cm">← GET/POST/PUT/DELETE /api/transactions</span>
+│   ├── <span class="fn">agenda.js</span>        <span class="cm">← GET/POST/PUT/DELETE /api/agenda</span>
+│   ├── <span class="fn">notes.js</span>         <span class="cm">← GET/POST/PUT/DELETE /api/notes</span>
+│   └── <span class="fn">reports.js</span>       <span class="cm">← GET /api/reports?year=YYYY</span>
+│
+├── <span class="kw">assets/</span>
+│   ├── css/
+│   │   └── <span class="str">style.css</span>    <span class="cm">← Design system completo (931 linhas)</span>
+│   ├── js/
+│   │   ├── <span class="fn">app.js</span>       <span class="cm">← Núcleo: navegação, modais, toast, API helper</span>
+│   │   ├── <span class="fn">dashboard.js</span> <span class="cm">← Gráficos e cards do Dashboard</span>
+│   │   ├── <span class="fn">financeiro.js</span><span class="cm">← Tabela de transações + filtros</span>
+│   │   ├── <span class="fn">agenda.js</span>    <span class="cm">← Calendário interativo + eventos</span>
+│   │   ├── <span class="fn">notas.js</span>     <span class="cm">← Grid de anotações coloridas</span>
+│   │   └── <span class="fn">relatorios.js</span><span class="cm">← Gráficos e tabela de relatórios anuais</span>
+│   └── icons/
+│       └── <span class="str">icon.svg</span>     <span class="cm">← Ícone PWA</span>
+│
+└── <span class="kw">php/</span>                 <span class="cm">← Backend PHP (uso local com SQLite)</span>
+    ├── db.php
+    ├── transactions.php
+    ├── agenda.php
+    ├── notes.php
+    └── reports.php
+    </div>
+
+    <h3>Padrão de Comunicação Frontend ↔ Backend</h3>
+    <p>O frontend detecta automaticamente o ambiente em execução para saber qual extensão de API usar:</p>
+
+    <div class="code-block">
+<span class="cm">// Detecta se está rodando localmente (PHP) ou em produção (Node.js)</span>
+<span class="kw">const</span> _isLocalPHP = [<span class="str">'localhost'</span>, <span class="str">'127.0.0.1'</span>].includes(window.location.hostname);
+<span class="kw">const</span> _API_EXT = _isLocalPHP ? <span class="str">'.php'</span> : <span class="str">''</span>;
+
+<span class="cm">// Exemplo de chamada:</span>
+<span class="cm">// Local:  fetch('api/transactions.php?month=2026-03')</span>
+<span class="cm">// Vercel: fetch('api/transactions?month=2026-03')</span>
+    </div>
+  </div>
+
+  <!-- 4. BANCO DE DADOS -->
+  <div class="section">
+    <div class="section-number">04 — Banco de Dados</div>
+    <h2>Modelagem de Dados</h2>
+
+    <p>
+      O banco de dados utilizado em produção é o <strong>PostgreSQL</strong>, hospedado gratuitamente no serviço <strong>Neon.tech</strong>. Para desenvolvimento local, o sistema usa <strong>SQLite</strong> com PHP/PDO. As tabelas são criadas automaticamente na primeira execução via <code>CREATE TABLE IF NOT EXISTS</code>.
+    </p>
+
+    <div class="highlight-green">
+      <strong>Auto-criação de tabelas:</strong> Não é necessário executar nenhuma migration ou script SQL manualmente. O arquivo <code>api/_db.js</code> cria todas as tabelas na primeira requisição ao sistema.
+    </div>
+
+    <h3>Tabela: transactions</h3>
+    <div class="db-table">
+      <div class="db-table-header">🗄️ transactions</div>
+      <div class="db-field">
+        <div class="db-field-name">id</div>
+        <div class="db-field-type">SERIAL PK</div>
+        <div class="db-field-desc">Identificador único auto-incrementado</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">type</div>
+        <div class="db-field-type">VARCHAR(20)</div>
+        <div class="db-field-desc">Tipo da transação: <code>'receita'</code> ou <code>'despesa'</code></div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">value</div>
+        <div class="db-field-type">DECIMAL(12,2)</div>
+        <div class="db-field-desc">Valor monetário com 2 casas decimais</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">category</div>
+        <div class="db-field-type">VARCHAR(100)</div>
+        <div class="db-field-desc">Categoria: Alimentação, Transporte, Salário, etc.</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">description</div>
+        <div class="db-field-type">TEXT</div>
+        <div class="db-field-desc">Descrição livre da transação (opcional)</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">date</div>
+        <div class="db-field-type">DATE</div>
+        <div class="db-field-desc">Data da transação no formato YYYY-MM-DD</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">created_at</div>
+        <div class="db-field-type">TIMESTAMPTZ</div>
+        <div class="db-field-desc">Timestamp de criação com fuso horário (padrão: NOW())</div>
+      </div>
+    </div>
+
+    <h3>Tabela: agenda</h3>
+    <div class="db-table">
+      <div class="db-table-header">🗄️ agenda</div>
+      <div class="db-field">
+        <div class="db-field-name">id</div>
+        <div class="db-field-type">SERIAL PK</div>
+        <div class="db-field-desc">Identificador único auto-incrementado</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">title</div>
+        <div class="db-field-type">VARCHAR(200)</div>
+        <div class="db-field-desc">Título do evento ou compromisso</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">date</div>
+        <div class="db-field-type">DATE</div>
+        <div class="db-field-desc">Data do evento</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">time</div>
+        <div class="db-field-type">TIME (nullable)</div>
+        <div class="db-field-desc">Horário do evento no formato HH:MM (pode ser nulo)</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">type</div>
+        <div class="db-field-type">VARCHAR(50)</div>
+        <div class="db-field-desc">Tipo: <code>'evento'</code>, <code>'reunião'</code>, <code>'lembrete'</code>, <code>'tarefa'</code></div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">status</div>
+        <div class="db-field-type">VARCHAR(50)</div>
+        <div class="db-field-desc">Status: <code>'pendente'</code>, <code>'concluido'</code>, <code>'cancelado'</code></div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">description</div>
+        <div class="db-field-type">TEXT</div>
+        <div class="db-field-desc">Detalhes e observações do evento (opcional)</div>
+      </div>
+    </div>
+
+    <h3>Tabela: notes</h3>
+    <div class="db-table">
+      <div class="db-table-header">🗄️ notes</div>
+      <div class="db-field">
+        <div class="db-field-name">id</div>
+        <div class="db-field-type">SERIAL PK</div>
+        <div class="db-field-desc">Identificador único auto-incrementado</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">title</div>
+        <div class="db-field-type">VARCHAR(200)</div>
+        <div class="db-field-desc">Título da anotação</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">content</div>
+        <div class="db-field-type">TEXT</div>
+        <div class="db-field-desc">Conteúdo completo da nota</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">color</div>
+        <div class="db-field-type">VARCHAR(20)</div>
+        <div class="db-field-desc">Cor da nota em HEX (ex: <code>#6366f1</code>). Padrão: índigo.</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">created_at</div>
+        <div class="db-field-type">TIMESTAMPTZ</div>
+        <div class="db-field-desc">Data/hora de criação</div>
+      </div>
+      <div class="db-field">
+        <div class="db-field-name">updated_at</div>
+        <div class="db-field-type">TIMESTAMPTZ</div>
+        <div class="db-field-desc">Data/hora da última edição (atualizado no PUT)</div>
+      </div>
+    </div>
+
+    <h3>Diferenciais do Banco de Dados</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Recurso</th>
+          <th>Implementação</th>
+          <th>Benefício</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Auto-criação</td>
+          <td><code>CREATE TABLE IF NOT EXISTS</code></td>
+          <td>Zero configuração manual</td>
+        </tr>
+        <tr>
+          <td>Queries parametrizadas</td>
+          <td><code>$1, $2, $3...</code> no PostgreSQL</td>
+          <td>Proteção total contra SQL Injection</td>
+        </tr>
+        <tr>
+          <td>Filtro por mês</td>
+          <td><code>TO_CHAR(date, 'YYYY-MM') = $1</code></td>
+          <td>Permite filtrar por mês sem converter no JS</td>
+        </tr>
+        <tr>
+          <td>DATE como string</td>
+          <td><code>types.setTypeParser(1082, val => val)</code></td>
+          <td>Retorna datas como <code>'2026-03-30'</code> sem conversão</td>
+        </tr>
+        <tr>
+          <td>Pool de conexões</td>
+          <td><code>Pool({ max: 1 })</code></td>
+          <td>Compatível com ambiente serverless (sem vazamentos)</td>
+        </tr>
+        <tr>
+          <td>COALESCE</td>
+          <td><code>COALESCE(SUM(...), 0)</code></td>
+          <td>Retorna 0 em vez de NULL quando não há dados</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 5. API REST -->
+  <div class="section">
+    <div class="section-number">05 — API REST</div>
+    <h2>Endpoints da API</h2>
+
+    <p>Cada módulo possui seu próprio endpoint REST que responde a todos os métodos HTTP necessários. A API segue o padrão RESTful com retornos em <strong>JSON</strong>.</p>
+
+    <h3>Transações — <code>/api/transactions</code></h3>
+    <table>
+      <thead>
+        <tr><th>Método</th><th>Parâmetros</th><th>Retorno</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-blue">GET</span></td>
+          <td><code>?month=YYYY-MM</code> <code>&type=</code> <code>&category=</code></td>
+          <td><code>{ data: [...], summary: { income, expense } }</code></td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">POST</span></td>
+          <td>Body: <code>{ type, value, category, description, date }</code></td>
+          <td><code>{ id, message }</code> — status 201</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-yellow">PUT</span></td>
+          <td><code>?id=N</code> + mesmo body do POST</td>
+          <td><code>{ message }</code> — status 200</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-red">DELETE</span></td>
+          <td><code>?id=N</code></td>
+          <td><code>{ message }</code> — status 200</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Agenda — <code>/api/agenda</code></h3>
+    <table>
+      <thead>
+        <tr><th>Método</th><th>Parâmetros</th><th>Retorno</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-blue">GET</span></td>
+          <td><code>?month=YYYY-MM</code> <code>&status=</code></td>
+          <td>Array de eventos ordenados por data/hora</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">POST</span></td>
+          <td>Body: <code>{ title, date, time, type, status, description }</code></td>
+          <td><code>{ id, message }</code> — status 201</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-yellow">PUT</span></td>
+          <td><code>?id=N</code> + body completo</td>
+          <td><code>{ message }</code></td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-red">DELETE</span></td>
+          <td><code>?id=N</code></td>
+          <td><code>{ message }</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Anotações — <code>/api/notes</code></h3>
+    <table>
+      <thead>
+        <tr><th>Método</th><th>Parâmetros</th><th>Retorno</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-blue">GET</span></td>
+          <td>—</td>
+          <td>Array de notas ordenadas por <code>updated_at DESC</code></td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">POST</span></td>
+          <td>Body: <code>{ title, content, color }</code></td>
+          <td><code>{ id, message }</code> — status 201</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-yellow">PUT</span></td>
+          <td><code>?id=N</code> — atualiza <code>updated_at = NOW()</code></td>
+          <td><code>{ message }</code></td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-red">DELETE</span></td>
+          <td><code>?id=N</code></td>
+          <td><code>{ message }</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Relatórios — <code>/api/reports</code></h3>
+    <table>
+      <thead>
+        <tr><th>Método</th><th>Parâmetros</th><th>Retorno</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-blue">GET</span></td>
+          <td><code>?year=YYYY</code></td>
+          <td><code>{ monthly: [...], by_category: [...], totals: {...}, year }</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 6. MÓDULOS -->
+  <div class="section">
+    <div class="section-number">06 — Funcionalidades</div>
+    <h2>Módulos do Sistema</h2>
+
+    <p>O FinanceFlow é composto por <strong>5 módulos</strong> acessíveis pela barra lateral (desktop) ou barra de navegação inferior (mobile).</p>
+
+    <!-- DASHBOARD -->
+    <div class="module" style="border-left-color:#6366f1">
+      <div class="module-header">
+        <div class="module-icon">📊</div>
+        <div>
+          <div class="module-title">Dashboard</div>
+          <div class="module-sub">Visão geral em tempo real das finanças do mês</div>
+        </div>
+        <span class="badge badge-accent" style="margin-left:auto">Módulo 1</span>
+      </div>
+      <p style="font-size:14px;color:#334155;margin-bottom:12px">
+        Tela principal do sistema. Carregada automaticamente ao abrir o app, exibe um resumo completo da situação financeira do mês atual com indicadores visuais, gráficos interativos e as transações mais recentes.
+      </p>
+      <ul class="feature-list">
+        <li>4 cards de KPI: Saldo do Mês, Total Receitas, Total Despesas e Taxa de Economia</li>
+        <li>Gráfico de pizza (Chart.js) com despesas agrupadas por categoria</li>
+        <li>Gráfico de barras com comparativo de receitas vs despesas nos últimos 6 meses</li>
+        <li>Tabela das 8 transações mais recentes do mês com tipo, categoria e valor</li>
+        <li>Indicador de mês atual no cabeçalho do card de gráfico</li>
+        <li>Taxa de Economia calculada: <code>(receitas - despesas) / receitas × 100</code></li>
+        <li>Cores dinâmicas: verde para valores positivos, vermelho para negativos</li>
+        <li>Gráficos redimensionados automaticamente ao trocar tema claro/escuro</li>
+      </ul>
+    </div>
+
+    <!-- FINANCEIRO -->
+    <div class="module" style="border-left-color:#10b981">
+      <div class="module-header">
+        <div class="module-icon">💳</div>
+        <div>
+          <div class="module-title">Financeiro</div>
+          <div class="module-sub">Gerenciamento completo de receitas e despesas</div>
+        </div>
+        <span class="badge badge-green" style="margin-left:auto">Módulo 2</span>
+      </div>
+      <p style="font-size:14px;color:#334155;margin-bottom:12px">
+        Central de controle financeiro. Permite adicionar, editar e excluir transações, além de filtrar por período, tipo e categoria com resumo financeiro atualizado em tempo real.
+      </p>
+      <ul class="feature-list">
+        <li>Filtros combinados: mês/ano, tipo (receita/despesa) e categoria</li>
+        <li>Cards de resumo: Saldo, Total Receitas e Total Despesas do filtro atual</li>
+        <li>Tabela completa com data, descrição, categoria, tipo e valor de cada transação</li>
+        <li>Botões de editar (reabre o modal preenchido) e excluir para cada linha</li>
+        <li>Modal de nova transação com seletor de tipo, valor, data, categoria e descrição</li>
+        <li>10 categorias de receita e 10 categorias de despesa pré-definidas</li>
+        <li>Contador de transações exibindo quantas foram encontradas com os filtros aplicados</li>
+        <li>Estado vazio visual com ícone e mensagem quando nenhuma transação é encontrada</li>
+      </ul>
+    </div>
+
+    <!-- AGENDA -->
+    <div class="module" style="border-left-color:#3b82f6">
+      <div class="module-header">
+        <div class="module-icon">📅</div>
+        <div>
+          <div class="module-title">Agenda</div>
+          <div class="module-sub">Calendário interativo com gestão de eventos</div>
+        </div>
+        <span class="badge badge-blue" style="margin-left:auto">Módulo 3</span>
+      </div>
+      <p style="font-size:14px;color:#334155;margin-bottom:12px">
+        Agenda visual com calendário mensal completo. Permite registrar compromissos, reuniões, lembretes e tarefas com horário, tipo e status de execução.
+      </p>
+      <ul class="feature-list">
+        <li>Calendário mensal com dias, headers de semana e navegação entre meses</li>
+        <li>Indicador visual (ponto colorido) nos dias que possuem eventos cadastrados</li>
+        <li>Destaque automático do dia atual no calendário</li>
+        <li>Seleção de dia: clique em qualquer dia para ver apenas os eventos daquele dia</li>
+        <li>Lista de eventos com horário, tipo (badge colorido) e status</li>
+        <li>Filtro por status: pendente, concluído ou cancelado</li>
+        <li>Modal de evento: título, data, horário, tipo, status e descrição</li>
+        <li>4 tipos de evento: Evento, Reunião, Lembrete, Tarefa</li>
+        <li>3 status: Pendente, Concluído, Cancelado — cada um com badge visual distinto</li>
+      </ul>
+    </div>
+
+    <!-- NOTAS -->
+    <div class="module" style="border-left-color:#8b5cf6">
+      <div class="module-header">
+        <div class="module-icon">📝</div>
+        <div>
+          <div class="module-title">Anotações Pessoais</div>
+          <div class="module-sub">Bloco de notas colorido e personalizável</div>
+        </div>
+        <span class="badge badge-purple" style="margin-left:auto">Módulo 4</span>
+      </div>
+      <p style="font-size:14px;color:#334155;margin-bottom:12px">
+        Módulo de anotações livres com visual de cartões coloridos. Ideal para registrar metas financeiras, lembretes, ideias e observações importantes.
+      </p>
+      <ul class="feature-list">
+        <li>Grade de cartões responsiva com mínimo de 260px por cartão</li>
+        <li>8 opções de cor para personalizar cada nota (índigo, verde, vermelho, amarelo, azul, rosa, roxo, verde-água)</li>
+        <li>Cada cartão exibe título, prévia do conteúdo e data da última atualização</li>
+        <li>Barra lateral colorida em cada cartão refletindo a cor escolhida</li>
+        <li>Modal de edição com título, conteúdo (textarea) e seletor de cores visual</li>
+        <li>Escape de HTML no conteúdo para segurança (evita XSS)</li>
+        <li>Estado vazio com mensagem de encorajamento ao criar a primeira nota</li>
+        <li>Ordenação por data de atualização (mais recentes primeiro)</li>
+      </ul>
+    </div>
+
+    <!-- RELATÓRIOS -->
+    <div class="module" style="border-left-color:#f59e0b">
+      <div class="module-header">
+        <div class="module-icon">📈</div>
+        <div>
+          <div class="module-title">Relatórios</div>
+          <div class="module-sub">Análise anual detalhada com gráficos e tabelas</div>
+        </div>
+        <span class="badge badge-yellow" style="margin-left:auto">Módulo 5</span>
+      </div>
+      <p style="font-size:14px;color:#334155;margin-bottom:12px">
+        Central de inteligência financeira. Consolida todos os dados do ano selecionado em gráficos analíticos e uma tabela de participação por categoria, permitindo identificar padrões de consumo.
+      </p>
+      <ul class="feature-list">
+        <li>Seletor de ano (últimos 6 anos disponíveis)</li>
+        <li>4 cards anuais: Total Receitas, Total Despesas, Saldo do Ano e Taxa de Poupança</li>
+        <li>Gráfico de linhas (Chart.js) com receitas e despesas mês a mês ao longo do ano</li>
+        <li>Gráfico de rosca (doughnut) com distribuição de despesas por categoria</li>
+        <li>Tabela de categorias: nome, tipo, valor total, quantidade de transações e participação %</li>
+        <li>Barra de progresso visual mostrando a participação percentual de cada categoria</li>
+        <li>Média mensal de despesas calculada automaticamente</li>
+        <li>Dados agregados com queries SQL no backend (sem processamento pesado no JS)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 7. DEPLOY -->
+  <div class="section">
+    <div class="section-number">07 — Deploy</div>
+    <h2>Processo de Deploy na Vercel</h2>
+
+    <p>O FinanceFlow está disponível em produção através de um pipeline de deploy automatizado: <strong>GitHub → Vercel → Neon</strong>. Qualquer novo <code>git push</code> na branch <code>main</code> dispara um novo deploy automaticamente.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h4>Banco de Dados — Neon.tech</h4>
+          <p>Criação de projeto PostgreSQL gratuito no Neon. Copia-se a <em>Connection String</em> no formato <code>postgres://user:senha@host.neon.tech/financeflow?sslmode=require</code>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h4>Repositório — GitHub</h4>
+          <p>Código enviado ao GitHub com <code>git init → git add → git commit → git push</code>. Repositório público ou privado. Arquivo <code>.env</code> jamais é commitado (está no <code>.gitignore</code>).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h4>Projeto — Vercel</h4>
+          <p>Conectado ao repositório GitHub via <code>vercel.com</code>. Framework detectado automaticamente como <em>Other</em> (sem build step necessário).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h4>Variável de Ambiente</h4>
+          <p>A <em>Connection String</em> do Neon é adicionada no painel da Vercel como variável de ambiente <code>DATABASE_URL</code>. Isso mantém a senha segura, fora do código.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h4>Deploy Automático</h4>
+          <p>A Vercel faz o deploy e fornece uma URL pública (<code>finance-flow.vercel.app</code>). Na primeira requisição, o <code>initDB()</code> cria todas as tabelas automaticamente no Neon.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <strong>Custo total de infraestrutura: R$ 0,00.</strong> Vercel Hobby (gratuito) + Neon Free Tier (gratuito) + GitHub (gratuito) = sistema em produção sem nenhum custo.
+    </div>
+  </div>
+
+  <!-- 8. PWA -->
+  <div class="section">
+    <div class="section-number">08 — PWA</div>
+    <h2>Progressive Web App</h2>
+
+    <p>O FinanceFlow pode ser instalado como aplicativo nativo em qualquer dispositivo — Android, iOS, Windows ou macOS — diretamente pelo browser, sem necessidade de loja de aplicativos.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <h4>manifest.json</h4>
+        <p>Define nome, cor de tema, ícone, modo de exibição standalone e atalhos de tela inicial (Nova Transação e Relatórios).</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚙️</div>
+        <h4>Service Worker (sw.js)</h4>
+        <p>Cache de assets estáticos (cache-first) e network-first para chamadas de API. Permite funcionamento offline parcial.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📲</div>
+        <h4>Banner de Instalação</h4>
+        <p>Banner nativo exibido automaticamente no celular quando o critério de instalação é atendido (HTTPS + manifest + SW).</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎨</div>
+        <h4>Theme Color Dinâmica</h4>
+        <p>A cor da barra de status do sistema operacional muda conforme o tema (escuro/claro) selecionado pelo usuário.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. SEGURANÇA -->
+  <div class="section">
+    <div class="section-number">09 — Segurança</div>
+    <h2>Práticas de Segurança</h2>
+
+    <table>
+      <thead>
+        <tr><th>Ameaça</th><th>Proteção Implementada</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SQL Injection</strong></td>
+          <td>Queries parametrizadas (<code>$1, $2...</code>) em todos os endpoints. Nenhum valor do usuário é interpolado diretamente no SQL.</td>
+        </tr>
+        <tr>
+          <td><strong>XSS (Cross-Site Scripting)</strong></td>
+          <td>Função <code>escapeHtml()</code> aplicada em todo conteúdo de notas antes de renderizar no DOM.</td>
+        </tr>
+        <tr>
+          <td><strong>Exposição de credenciais</strong></td>
+          <td><code>DATABASE_URL</code> armazenado apenas como variável de ambiente na Vercel. O arquivo <code>.env</code> está no <code>.gitignore</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>Requisições indevidas</strong></td>
+          <td>Cada endpoint valida campos obrigatórios e retorna erro 400 com mensagem específica se os dados estiverem incompletos.</td>
+        </tr>
+        <tr>
+          <td><strong>Método HTTP incorreto</strong></td>
+          <td>Todos os endpoints retornam erro 405 para métodos não suportados.</td>
+        </tr>
+        <tr>
+          <td><strong>CORS</strong></td>
+          <td>Headers CORS configurados nos serverless functions para permitir chamadas do frontend. Configuração adicional no <code>vercel.json</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 10. RESUMO -->
+  <div class="section">
+    <div class="section-number">10 — Resumo</div>
+    <h2>Visão Consolidada</h2>
+
+    <table>
+      <thead>
+        <tr><th>Aspecto</th><th>Detalhe</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tipo</strong></td>
+          <td>SPA (Single-Page Application) com PWA</td>
+        </tr>
+        <tr>
+          <td><strong>Frontend</strong></td>
+          <td>HTML5, CSS3, JavaScript ES2022 Vanilla, Chart.js</td>
+        </tr>
+        <tr>
+          <td><strong>Backend (produção)</strong></td>
+          <td>Node.js 20 + Vercel Serverless Functions</td>
+        </tr>
+        <tr>
+          <td><strong>Backend (local)</strong></td>
+          <td>PHP 8 + PDO + SQLite</td>
+        </tr>
+        <tr>
+          <td><strong>Banco de dados</strong></td>
+          <td>PostgreSQL 16 (Neon Free Tier) — 3 tabelas</td>
+        </tr>
+        <tr>
+          <td><strong>Hosting</strong></td>
+          <td>Vercel (Hobby Plan — gratuito)</td>
+        </tr>
+        <tr>
+          <td><strong>Controle de versão</strong></td>
+          <td>GitHub (deploy automático a cada push)</td>
+        </tr>
+        <tr>
+          <td><strong>Módulos</strong></td>
+          <td>Dashboard, Financeiro, Agenda, Anotações, Relatórios</td>
+        </tr>
+        <tr>
+          <td><strong>Endpoints REST</strong></td>
+          <td>4 endpoints (transactions, agenda, notes, reports)</td>
+        </tr>
+        <tr>
+          <td><strong>Gráficos</strong></td>
+          <td>4 tipos: Pizza, Barras, Linha, Rosca (doughnut)</td>
+        </tr>
+        <tr>
+          <td><strong>Temas</strong></td>
+          <td>Escuro e Claro — alternância com CSS Variables</td>
+        </tr>
+        <tr>
+          <td><strong>Responsividade</strong></td>
+          <td>Mobile First — hamburger, bottom nav, safe area iOS</td>
+        </tr>
+        <tr>
+          <td><strong>Custo mensal</strong></td>
+          <td>R$ 0,00 (100% gratuito em produção)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-green" style="margin-top:28px">
+      <strong>Resultado:</strong> Sistema completo de gerenciamento financeiro pessoal, com 5 módulos funcionais, banco de dados em nuvem, deploy contínuo automatizado, disponível 24/7 em qualquer dispositivo — desenvolvido inteiramente com tecnologias gratuitas e de código aberto.
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <strong>FinanceFlow</strong> — Gerenciador Financeiro Pessoal<br>
+  Projeto Acadêmico — Desenvolvimento Web · 2026<br><br>
+  <span style="font-size:11px">Desenvolvido com HTML5 · CSS3 · JavaScript · Node.js · PostgreSQL · Vercel</span>
+</div>
+
+</body>
+</html>

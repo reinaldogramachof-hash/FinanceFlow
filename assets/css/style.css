@@ -872,44 +872,113 @@ select.form-control { cursor: pointer; }
   gap: 4px;
 }
 
+/* ===== SETTINGS PAGE ===== */
+.settings-cats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.cat-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 36px;
+}
+
+.cat-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.cat-tag button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+}
+
+.cat-tag button:hover { color: var(--red); }
+
+.danger-zone {
+  border: 1px solid rgba(239,68,68,0.3);
+  background: rgba(239,68,68,0.04);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .grid-2, .reports-grid { grid-template-columns: 1fr; }
   .agenda-layout { grid-template-columns: 1fr; }
 }
 
+/* ===== MOBILE: Sidebar fixa como rail de ícones ===== */
 @media (max-width: 768px) {
-  :root { --sidebar-width: 0px; }
+  :root { --sidebar-width: 64px; }
 
-  /* Sidebar vira drawer */
+  /* Sidebar sempre visível como rail estreito */
   .sidebar {
-    transform: translateX(-240px);
-    width: 240px;
-    z-index: 100;
-    transition: transform 0.3s ease;
+    width: 64px;
+    transform: none;
+    transition: none;
     box-shadow: none;
-  }
-  .sidebar.mobile-open {
-    transform: translateX(0);
-    box-shadow: 4px 0 32px rgba(0,0,0,0.4);
+    overflow: hidden;
   }
 
-  /* Remove logo close button in sidebar on mobile */
-  .sidebar-logo { padding-right: 48px; }
+  /* Logo: apenas ícone centralizado */
+  .sidebar-logo {
+    padding: 16px 0;
+    justify-content: center;
+  }
+  .sidebar-logo .logo-text { display: none; }
 
-  /* Main sem margem */
-  .main { margin-left: 0; }
+  /* Nav: centraliza e esconde texto */
+  .nav-label { display: none; }
+  .nav-item {
+    justify-content: center;
+    padding: 14px 0;
+    font-size: 0;
+  }
+  .nav-item .icon { font-size: 22px; margin: 0; }
+  .nav-text { display: none; }
 
-  /* Topbar com hamburger */
-  .hamburger { display: flex; }
+  /* Theme toggle: apenas o switch centralizado */
+  .sidebar-bottom { padding: 12px 0; }
+  .theme-toggle {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .theme-toggle > span { display: none; }
+
+  /* Hamburger e backdrop desnecessários */
+  .hamburger { display: none; }
+  .sidebar-backdrop { display: none !important; }
+
+  /* Main com margem do sidebar */
+  .main { margin-left: 64px; }
+
+  /* Topbar */
   .topbar { padding: 12px 16px; gap: 12px; }
   .topbar-title h1 { font-size: 16px; }
   .topbar-title p { display: none; }
   #currentDate { display: none; }
   #btnAdd { padding: 8px 12px; font-size: 12px; }
 
-  /* Content */
-  .content { padding: 14px 14px 80px; }
+  /* Content sem padding do bottom nav */
+  .content { padding: 14px 14px 24px; }
 
   /* Stats */
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -920,18 +989,18 @@ select.form-control { cursor: pointer; }
   /* Cards */
   .card { padding: 14px; }
 
-  /* Tables — scroll horizontal */
+  /* Tables */
   .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table { min-width: 480px; }
 
-  /* Filter bar — wrap */
+  /* Filters */
   .filter-bar { flex-wrap: wrap; }
   .filter-bar .form-control { flex: 1; min-width: 120px; }
 
   /* Forms */
   .form-row, .form-row-3 { grid-template-columns: 1fr; }
 
-  /* Modal */
+  /* Modal — sobe como sheet */
   .modal-overlay { align-items: flex-end; padding: 0; }
   .modal {
     border-radius: var(--radius) var(--radius) 0 0;
@@ -940,21 +1009,18 @@ select.form-control { cursor: pointer; }
     overflow-y: auto;
   }
 
-  /* Bottom nav */
-  .bottom-nav { display: block; }
-
-  /* Hide sidebar nav on mobile (use bottom nav) */
-  .topbar-actions #btnAdd { display: none !important; }
-
-  /* Charts smaller */
+  /* Charts */
   .chart-container { height: 180px; }
 
-  /* Notes grid */
+  /* Notes */
   .notes-grid { grid-template-columns: 1fr; }
 
   /* Toast */
-  .toast-container { bottom: 70px; right: 12px; left: 12px; }
+  .toast-container { bottom: 16px; right: 12px; left: 12px; }
   .toast { min-width: unset; }
+
+  /* Settings */
+  .settings-cats-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 400px) {

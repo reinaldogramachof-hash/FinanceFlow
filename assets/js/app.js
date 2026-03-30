@@ -7,12 +7,20 @@ const CATEGORIES = {
 const NOTE_COLORS = ['#6366f1','#10b981','#ef4444','#f59e0b','#3b82f6','#ec4899','#8b5cf6','#14b8a6'];
 
 const PAGE_INFO = {
-  dashboard:  { title: 'Dashboard',    subtitle: 'Visão geral das suas finanças' },
-  financeiro: { title: 'Financeiro',   subtitle: 'Gerencie suas receitas e despesas' },
-  agenda:     { title: 'Agenda',       subtitle: 'Compromissos e lembretes' },
-  notas:      { title: 'Anotações',    subtitle: 'Suas anotações pessoais' },
-  relatorios: { title: 'Relatórios',   subtitle: 'Análise detalhada das suas finanças' }
+  dashboard:     { title: 'Dashboard',      subtitle: 'Visão geral das suas finanças' },
+  financeiro:    { title: 'Financeiro',     subtitle: 'Gerencie suas receitas e despesas' },
+  agenda:        { title: 'Agenda',         subtitle: 'Compromissos e lembretes' },
+  notas:         { title: 'Anotações',      subtitle: 'Suas anotações pessoais' },
+  relatorios:    { title: 'Relatórios',     subtitle: 'Análise detalhada das suas finanças' },
+  configuracoes: { title: 'Configurações',  subtitle: 'Perfil, categorias e backup de dados' }
 };
+
+// Mescla categorias personalizadas salvas pelo usuário
+(function() {
+  const custom = JSON.parse(localStorage.getItem('ff_categories') || '{"receita":[],"despesa":[]}');
+  CATEGORIES.receita = [...new Set([...CATEGORIES.receita, ...custom.receita])];
+  CATEGORIES.despesa = [...new Set([...CATEGORIES.despesa, ...custom.despesa])];
+})();
 
 let currentPage = 'dashboard';
 let transactionType = 'receita';
@@ -45,6 +53,7 @@ function navigate(page) {
   if (page === 'agenda') loadAgenda();
   if (page === 'notas') loadNotas();
   if (page === 'relatorios') loadReports();
+  if (page === 'configuracoes') loadConfiguracoes();
 }
 
 // ===== HAMBURGER / SIDEBAR MOBILE =====
