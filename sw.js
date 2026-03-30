@@ -1,5 +1,5 @@
-const CACHE_NAME = 'financeflow-v2';
-const CACHE_STATIC = 'financeflow-static-v2';
+const CACHE_NAME = 'financeflow-v3';
+const CACHE_STATIC = 'financeflow-static-v3';
 
 // Assets to cache on install
 const STATIC_ASSETS = [

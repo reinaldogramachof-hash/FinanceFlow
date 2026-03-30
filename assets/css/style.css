@@ -228,10 +228,14 @@ input:checked + .toggle-slider:before { transform: translateX(16px); }
   padding: 16px 28px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 20px;
   position: sticky;
   top: 0;
   z-index: 50;
+}
+
+.topbar-title {
+  flex: 1;
 }
 
 .topbar-title h1 {
